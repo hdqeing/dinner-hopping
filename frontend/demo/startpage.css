@@ -1,0 +1,48 @@
+body {
+    background-image: url(bg.jpg);
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-selector {
+    background-color: rgba(28, 110, 8, 0.75);
+    width: 75%;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+}
+
+h1, a{
+    color: white;
+    font-size: 48;
+    margin: 20px;
+
+}
+
+a{
+    border: white 2px solid;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+
+.single-registration-form, .double-registration-form{
+    background-color: rgba(28, 110, 8, 0.75);
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+}
+
+
+input{
+    margin: 10px;
+}
