@@ -1,5 +1,6 @@
 const express = require('express')
 const mysql = require('mysql2')
+const cors = require('cors')
 const nodemailer = require("nodemailer");
 var fs = require("fs")
 
@@ -19,6 +20,8 @@ const connection = mysql.createConnection({
 })
 
 app.use(express.json());
+app.use(cors());
+app.options('*', cors());
 
 app.get('/', (req, res) => {
   res.json({"message":'This is API service for dinner hopping web application!'})
