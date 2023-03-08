@@ -8,57 +8,59 @@
           content="This is a simple registration page for popular dinner hopping event." />
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="startpage.css" />
-        <script src="startpage.js" defer></script>
+        <script src="singleregisterpage.js" defer></script>
     </head>
     <body>
-        <form class="single-registration-form">
-            <input type="text" placeholder="name">
-            <input type="email" placeholder="email">
+        <form class="single-registration-form" method="POST" id="register-form">
+            <input type="text" placeholder="name" id="textfield-name">
+            <input type="email" placeholder="email" id="textfield-email">
+            <input type="tel" placeholder="phone number" id="textfield-phone">
 
 
 
 
             <div>
                 <label>Can you host in your kitchen?</label><br>
-                <input type="radio" name="host">
+                <input type="radio" name="host" value="1" checked>
                 <label>I can host</label><br>
-                <input type="radio" name="host">
+                <input type="radio" name="host" value="0">
                 <label>I cannot host</label>
 
             </div>
             <div>
-                <input type="text" placeholder="Street">
-                <input type="number" placeholder="house number">
+                <input type="text" placeholder="Street" id="textfield-street">
+                <input type="number" placeholder="house number" id="textfield-housenumber">
             </div>
 
             <div>
                 <label>Are you a vegetarian or vegan?</label><br>
-                <input type="checkbox" name="isVeg">
+                <input type="checkbox" name="isVeg" id="vegetarian">
                 <label>I am vegetarian</label><br>
-                <input type="checkbox" name="isVeg">
+                <input type="checkbox" name="isVeg" id="vegan">
                 <label>I am vegan</label>
             </div>
 
             <div>
                 <label>What languages do you speak?</label><br>
-                <input type="checkbox" name="language">
+                <input type="checkbox" name="language" id="englishSpeaker">
                 <label>I speak English</label><br>
-                <input type="checkbox" name="language">
-                <label>I speak german</label>
+                <input type="checkbox" name="language" id="germanSpeaker">
+                <label>I speak German</label>
             </div>
 
             <div>
                 <label>Which course would you like to prepare?</label><br>
-                <input type="checkbox" name="course">
+                <input type="checkbox" name="course" id="appetizer">
                 <label>I can prepare starter</label><br>
-                <input type="checkbox" name="course">
+                <input type="checkbox" name="course" id="mainCourse">
                 <label>I can prepare main course</label><br>
-                <input type="checkbox" name="course">
+                <input type="checkbox" name="course" id="dessert">
                 <label>I can prepare dessert</label>
             </div>
 
-            <input type="text" placeholder="Other preferences, such as allergies">
-            <input type="submit">
+            <input type="text" placeholder="Other preferences, such as allergies" id="comment">
+            <input type="submit" id="button-submit">
         </form>
     </body>
+
 </html>
