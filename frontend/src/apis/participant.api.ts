@@ -11,6 +11,8 @@ export const enroll = (req: EnrollmentRequest) => {
 export interface EnrollmentRequest {
   name: string;
   email: string;
+  friendName?: string;
+  friendEmail?: string;
   phonenumber?: string | null;
   vegan: boolean;
   vegetarian: boolean;

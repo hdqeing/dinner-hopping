@@ -16,15 +16,11 @@
     "@types/mjml": "^4.7.0",
     "@types/node-fetch": "^2.6.2",
     "@types/nodemailer": "^6.4.7",
-    "cssnano": "^5.1.15",
     "dotenv": "^16.0.3",
     "handlebars": "^4.7.7",
-    "htmlnano": "^2.0.3",
     "mjml": "^4.13.0",
     "nodemailer": "^6.9.1",
-    "postcss": "^8.4.21",
-    "superagent": "^8.0.9",
-    "terser": "^5.16.6"
+    "superagent": "^8.0.9"
   },
   "devDependencies": {
     "@midwayjs/cli": "^2.0.0",
@@ -51,6 +47,8 @@
     "lint": "mwts check",
     "lint:fix": "mwts fix",
     "ci": "npm run cov",
+    "mjml": "mjml ./src/template/*.mjml -o ./src/template/generate/ --config.minify",
+    "db:pull": "prisma db pull && prisma generate",
     "build": "midway-bin build -c"
   },
   "midway-bin-clean": [

@@ -8,6 +8,8 @@ export interface IUserOptions {
 export interface AddParticipantRequest {
   name: string;
   email: string;
+  friendName: string;
+  friendEmail: string;
   phonenumber?: string | null;
   vegan: boolean;
   vegetarian: boolean;
@@ -40,6 +42,16 @@ export interface SendMailEvent {
   html: string;
 }
 
+export interface RegistrationSuccessEmailVariables {
+  appellation: string;
+  qa: QuestionAndAnswer[];
+}
+
+export interface QuestionAndAnswer {
+  question: string;
+  answer: string;
+}
+
 /**
  * @description authentication credentials
  */
@@ -58,4 +70,10 @@ export interface OAuthCredentials {
 
 export declare const enum EmailType {
   TEST = 1,
+  REGISTRATION_SUCCESS,
+}
+
+export interface KeyValuePair {
+  key: string;
+  value: string;
 }
