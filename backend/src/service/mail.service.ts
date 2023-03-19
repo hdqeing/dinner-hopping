@@ -1,6 +1,8 @@
 import { Provide, Config, Inject } from '@midwayjs/core';
+import { participant } from '@prisma/client';
 import { createTransport } from 'nodemailer';
 import { SendMailEvent, OAuthCredentials } from '../interface';
+import { TemplateManager } from '../template.manager';
 import { TokenManager } from '../token.manager';
 
 @Provide()
@@ -10,6 +12,9 @@ export class EmailService {
 
   @Inject()
   tokenManager: TokenManager;
+
+  @Inject()
+  templateManager: TemplateManager;
 
   constructor() {}
 
@@ -36,5 +41,36 @@ export class EmailService {
     };
 
     return transporter.sendMail(options).then(transporter.close);
+  }
+
+  async sendRegistrationSuccessEmail(pojo: participant) {
+    let title: string;
+    let emailHtml: string;
+    if (pojo.friend_name && pojo.friend_name !== '') {
+      title = 'Successful Dinner Hopping registration for yourself';
+    } else {
+      title = 'Successful Dinner Hopping registration with your friend';
+    }
+
+    // Generate email html
+    emailHtml = await this.templateManager.getRegistrationSuccessHtml(pojo);
+
+    // Send mail to applicant
+    if (pojo.applicant_email && pojo.applicant_email !== '') {
+      await this.sendMail({
+        to: pojo.applicant_email,
+        subject: title,
+        html: emailHtml,
+      });
+    }
+
+    // Send mail to applicant's friend
+    if (pojo.friend_email && pojo.friend_email !== '') {
+      await this.sendMail({
+        to: pojo.friend_email,
+        subject: title,
+        html: emailHtml,
+      });
+    }
   }
 }

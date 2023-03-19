@@ -3,7 +3,7 @@
 
 <template>
   <div class="front">
-    <h1>Participate in our Diner Hopping</h1>
+    <h1>Participate in our Dinner Hopping</h1>
     <h3>Savor homely cuisine and engage in conversations with novel acquaintances.</h3>
     <h3>Enroll now</h3>
     <router-link class="button" to="/for-oneself">For oneself</router-link>
@@ -14,10 +14,10 @@
 
 <style scoped>
 .h1 {
-  font-size: 3em;
+  font-size: 2em;
 }
 .h3 {
-  font-size: 1.5em;
+  font-size: 1em;
 }
 div.vertical-button-gap {
   height: 2vh
