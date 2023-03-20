@@ -1,0 +1,38 @@
+<mjml>
+  <mj-head>
+    
+  </mj-head>
+  <mj-body>
+    <mj-wrapper border="1px solid #aaaaaa" padding="50px 30px">
+      <mj-section padding="0 20px">
+        <mj-column>
+          <mj-text font-size="16px">Dear {{ appellation }}</mj-text>
+          <mj-text font-size="16px">Your registration form has been received, and any subsequent event details shall be communicated to you via this email address.</mj-text>
+          <mj-spacer height="10px"></mj-spacer>
+        </mj-column>
+      </mj-section>
+
+      <mj-section padding="0 20px">
+        <mj-column>
+          <mj-table>
+            <tr style="text-align:left;border-bottom:1px solid #1c6e08bf;padding:15px 0;">
+              <th style="padding: 0 15px 0 0;">Question</th>
+              <th style="padding: 0 0 0 15px;">Your Answer</th>
+            </tr>
+            {{#each qa}}
+            <tr>
+              <td style="padding: 0 15px 0 0;">{{ question }}</td>
+              <td style="padding: 0 0 0 15px;">{{ answer }} </td>
+            </tr>
+            {{/each}}
+          </mj-table>  
+        </mj-column>  
+      </mj-section>
+      <mj-section>
+        <mj-column>
+          <mj-text font-size="16px" align="center">Copyright © 2023. DinnerHopping All rights reserved.</mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
+  </mj-body>
+</mjml>

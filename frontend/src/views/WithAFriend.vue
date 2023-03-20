@@ -4,5 +4,5 @@ import Enrollment from '@/components/Enrollment.vue'
 </script>
 
 <template>
-  <Enrollment></Enrollment>
+  <Enrollment with-friend></Enrollment>
 </template>

@@ -1,11 +1,12 @@
 import { Api, Get, Post } from '@midwayjs/hooks';
 import { prisma } from './prisma';
 import { AddParticipantRequest } from '../interface';
+import { participant } from '@prisma/client';
 
 export const listParticipant = Api(Get(), async () => {
   const results = await prisma.participant.findMany({
     where: { verified: false },
-    select: { name: true },
+    select: { applicant_name: true },
   });
   return results;
 });
@@ -15,15 +16,19 @@ export const addParticipant = Api(
   async (request: AddParticipantRequest) => {
     const result = await prisma.participant.create({
       data: {
-        name: request.name,
-        email: request.email,
+        applicant_name: request.name,
+        applicant_email: request.email,
+        friend_name: request.friendName,
+        friend_email: request.friendEmail,
+        street: request.street,
+        house_number: request.houseNumber,
         vegan: request.vegan,
         vegetarian: request.vegetarian,
-        englishSpeaker: request.englishSpeaker,
-        germanSpeaker: request.germanSpeaker,
+        english_speaker: request.englishSpeaker,
+        german_speaker: request.germanSpeaker,
         host: request.host,
         appetizer: request.appetizer,
-        mainCourse: request.mainCourse,
+        main_course: request.mainCourse,
         dessert: request.dessert,
         verified: false,
         paid: false,
@@ -32,3 +37,15 @@ export const addParticipant = Api(
     return result;
   }
 );
+
+export const getParticipantByEmail = async function (
+  email: string
+): Promise<participant> {
+  const result: participant = await prisma.participant.findFirst({
+    where: {
+      applicant_email: email,
+      is_deleted: false,
+    },
+  });
+  return result;
+};
