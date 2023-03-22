@@ -4,6 +4,10 @@
     {
       "route": "/",
       "rewrite": "/frontend/dist/index.html"
+    },
+    {
+      "route": "/index",
+      "rewrite": "/frontend/index.html"
     }
   ],
   "navigationFallback": {
