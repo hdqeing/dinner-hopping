@@ -1,4 +1,11 @@
 {
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/",
+      "rewrite": "/dist/index.html"
+    }
+  ],
   "navigationFallback": {
     "rewrite": "/dist/index.html",
     "exclude": [
