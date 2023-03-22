@@ -3,12 +3,8 @@
   "routes": [
     {
       "route": "/",
-      "rewrite": "/dist/index.html"
-    },
-     {
-      "route": "/dist/*",
-      "rewrite": "/dist/index.html"
-    } 
+      "rewrite": "/frontend/dist/index.html"
+    }
   ],
   "navigationFallback": {
     "rewrite": "/dist/index.html",
