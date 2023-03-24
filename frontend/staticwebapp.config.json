@@ -3,7 +3,11 @@
   "routes": [
     {
       "route": "/",
-      "rewrite": "/dist/index.html"
+      "rewrite": "dist/index.html"
+    },
+    {
+      "route": "/index",
+      "rewrite": "index.html"
     }
   ],
   "navigationFallback": {
