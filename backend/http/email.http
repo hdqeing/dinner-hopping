@@ -1,0 +1,21 @@
+POST http://localhost:4365/api/send_mail HTTP/1.1
+content-type: application/json
+
+{}
+
+### create a participant
+POST http://localhost:4365/api/participant
+Content-Type: application/json
+
+{
+  "name": "Zoe",
+  "email": "geekziyu@gmail.com",
+  "vegan": true,
+  "vegetarian": true,
+  "englishSpeaker": true,
+  "germanSpeaker": true,
+  "host": false,
+  "appetizer": false,
+  "mainCourse": false,
+  "dessert": false
+}

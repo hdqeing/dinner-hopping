@@ -1,0 +1,19 @@
+{
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/",
+      "rewrite": "dist/index.html"
+    },
+    {
+      "route": "/index",
+      "rewrite": "index.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/dist/index.html",
+    "exclude": [
+      "*.{css,scss,js,png,gif,ico,jpg,svg}"
+    ]
+  }
+}

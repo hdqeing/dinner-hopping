@@ -1,0 +1,64 @@
+{
+  "name": "dinner-hopping-backend",
+  "version": "1.0.0",
+  "description": "Backend for dinner hopping",
+  "private": true,
+  "dependencies": {
+    "@midwayjs/bootstrap": "^3.0.0",
+    "@midwayjs/core": "^3.0.0",
+    "@midwayjs/decorator": "^3.0.0",
+    "@midwayjs/hooks": "^3.1.4",
+    "@midwayjs/info": "^3.0.0",
+    "@midwayjs/koa": "^3.0.0",
+    "@midwayjs/logger": "^2.14.0",
+    "@midwayjs/validate": "^3.0.0",
+    "@prisma/client": "^4.11.0",
+    "@types/mjml": "^4.7.0",
+    "@types/node-fetch": "^2.6.2",
+    "@types/nodemailer": "^6.4.7",
+    "dotenv": "^16.0.3",
+    "handlebars": "^4.7.7",
+    "mjml": "^4.13.0",
+    "nodemailer": "^6.9.1",
+    "superagent": "^8.0.9"
+  },
+  "devDependencies": {
+    "@midwayjs/cli": "^2.0.0",
+    "@midwayjs/mock": "^3.0.0",
+    "@types/jest": "^29.2.0",
+    "@types/koa": "^2.13.4",
+    "@types/node": "^14.18.37",
+    "cross-env": "^6.0.0",
+    "jest": "^29.2.2",
+    "mwts": "^1.0.5",
+    "prisma": "^4.11.0",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "~4.8.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production node ./bootstrap.js",
+    "dev": "cross-env NODE_ENV=local midway-bin dev --ts",
+    "test": "midway-bin test --ts",
+    "cov": "midway-bin cov --ts",
+    "lint": "mwts check",
+    "lint:fix": "mwts fix",
+    "ci": "npm run cov",
+    "mjml": "mjml ./src/template/*.mjml -o ./src/template/generate/ --config.minify",
+    "db:pull": "prisma db pull && prisma generate",
+    "build": "midway-bin build -c"
+  },
+  "midway-bin-clean": [
+    ".vscode/.tsbuildinfo",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "anonymous",
+  "license": "MIT"
+}
