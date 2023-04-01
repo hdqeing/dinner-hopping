@@ -1,4 +1,4 @@
-import { Configuration, App, IMidwayContainer } from '@midwayjs/core';
+import { Configuration, App, Inject } from '@midwayjs/core';
 import * as koa from '@midwayjs/koa';
 import * as validate from '@midwayjs/validate';
 import * as info from '@midwayjs/info';
@@ -7,7 +7,7 @@ import { join } from 'path';
 // import { NotFoundFilter } from './filter/notfound.filter';
 import { ReportMiddleware } from './middleware/report.middleware';
 import * as dotenv from 'dotenv';
-import { TokenManager } from './token.manager';
+import { AzureKeyVaultService } from './service/azure.service';
 
 // load .env file in process.cwd
 dotenv.config();
@@ -21,15 +21,30 @@ dotenv.config();
       enabledEnvironment: ['local'],
     },
   ],
-  importConfigs: [
-    join(__dirname, './config'),
-    '/etc/dinner-hopping/config.js',
-    '/usr/local/etc/dinner-hopping/config.js',
-  ],
+  importConfigs: [join(__dirname, './config')],
 })
 export class ContainerLifeCycle {
   @App()
   app: koa.Application;
+
+  @Inject()
+  azureSecretsClient: AzureKeyVaultService;
+
+  async onConfigLoad() {
+    console.log(this.app.getEnv());
+    const sendgridApiKey = await this.azureSecretsClient.getSecret(
+      'SENDGRID-API-KEY'
+    );
+    const sendgridSender = await this.azureSecretsClient.getSecret(
+      'SENDGRID-SENDER'
+    );
+    return {
+      sendgrid: {
+        apiKey: sendgridApiKey,
+        sender: sendgridSender,
+      },
+    };
+  }
 
   async onReady() {
     // add middleware
@@ -38,8 +53,7 @@ export class ContainerLifeCycle {
     // this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
   }
 
-  async onServerReady(container: IMidwayContainer) {
+  async onServerReady() {
     console.log('onServerReady');
-    container.getAsync(TokenManager).then(ma => ma.refreshAccessToken());
   }
 }
