@@ -1,46 +1,40 @@
-import { Provide, Config, Inject } from '@midwayjs/core';
+import { Provide, Inject, Config, Init } from '@midwayjs/core';
 import { participant } from '@prisma/client';
-import { createTransport } from 'nodemailer';
-import { SendMailEvent, OAuthCredentials } from '../interface';
+import { SendMailEvent } from '../interface';
 import { TemplateManager } from '../template.manager';
-import { TokenManager } from '../token.manager';
+import { MailService } from '@sendgrid/mail';
 
 @Provide()
 export class EmailService {
-  @Config('oauth2')
-  credentials: OAuthCredentials;
-
-  @Inject()
-  tokenManager: TokenManager;
-
   @Inject()
   templateManager: TemplateManager;
 
-  constructor() {}
+  @Config('sendgrid.apiKey')
+  apiKey: string;
+
+  @Config('sendgrid.sender')
+  sender: string;
+
+  sendgridMailClient: MailService;
+
+  constructor() {
+    this.sendgridMailClient = new MailService();
+  }
+
+  @Init()
+  async init() {
+    this.sendgridMailClient.setApiKey(this.apiKey);
+  }
 
   async sendMail(event: SendMailEvent) {
-    const transporter = createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-        type: 'oauth2',
-        user: this.credentials.user,
-        clientId: this.credentials.clientId,
-        clientSecret: this.credentials.clientSecret,
-        refreshToken: this.credentials.refreshToken,
-        accessToken: this.tokenManager.getAccessToken(),
-      },
-    });
-
     const options = {
-      from: this.credentials.user,
+      from: this.sender,
       to: event.to,
       subject: event.subject,
       html: event.html,
     };
 
-    return transporter.sendMail(options).then(transporter.close);
+    return this.sendgridMailClient.send(options);
   }
 
   async sendRegistrationSuccessEmail(pojo: participant) {

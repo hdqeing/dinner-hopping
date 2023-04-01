@@ -52,22 +52,6 @@ export interface QuestionAndAnswer {
   answer: string;
 }
 
-/**
- * @description authentication credentials
- */
-export interface OAuthCredentials {
-  /** User e-mail address */
-  user: string;
-  /** Client ID value */
-  clientId: string;
-  /** Client secret value */
-  clientSecret: string;
-  /** Refresh token for an user */
-  refreshToken: string;
-  /** An existing valid accessToken */
-  accessToken: string;
-}
-
 export declare const enum EmailType {
   TEST = 1,
   REGISTRATION_SUCCESS,

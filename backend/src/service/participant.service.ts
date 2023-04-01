@@ -1,20 +1,20 @@
-import { Api, Get, Post } from '@midwayjs/hooks';
-import { prisma } from './prisma';
+import { Provide } from '@midwayjs/core'
 import { AddParticipantRequest } from '../interface';
 import { participant } from '@prisma/client';
+import { BaseService } from './base.service';
 
-export const listParticipant = Api(Get(), async () => {
-  const results = await prisma.participant.findMany({
-    where: { verified: false },
-    select: { applicant_name: true },
-  });
-  return results;
-});
+@Provide()
+export class ParticipantService extends BaseService {
 
-export const addParticipant = Api(
-  Post(),
-  async (request: AddParticipantRequest) => {
-    const result = await prisma.participant.create({
+  async listParticipant() {
+    return await this.prisma.participant.findMany({
+      where: { verified: false },
+      select: { applicant_name: true },
+    });
+  }
+
+  async addParticipant(request: AddParticipantRequest) {
+    return await this.prisma.participant.create({
       data: {
         applicant_name: request.name,
         applicant_email: request.email,
@@ -34,18 +34,14 @@ export const addParticipant = Api(
         paid: false,
       },
     });
-    return result;
   }
-);
 
-export const getParticipantByEmail = async function (
-  email: string
-): Promise<participant> {
-  const result: participant = await prisma.participant.findFirst({
-    where: {
-      applicant_email: email,
-      is_deleted: false,
-    },
-  });
-  return result;
-};
+ async getParticipantByEmail(email: string): Promise<participant> {
+    return await this.prisma.participant.findFirst({
+      where: {
+        applicant_email: email,
+        is_deleted: false,
+      },
+    });
+  };
+}

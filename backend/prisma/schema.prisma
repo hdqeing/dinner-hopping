@@ -10,7 +10,7 @@ datasource db {
 model participant {
   participant_id  Int       @id @default(autoincrement())
   applicant_name  String    @db.VarChar(64)
-  applicant_email String    @unique(map: "applicant_email") @db.VarChar(128)
+  applicant_email String    @db.VarChar(128)
   friend_name     String?   @db.VarChar(64)
   friend_email    String?   @db.VarChar(128)
   phonenumber     String?   @db.VarChar(45)
@@ -32,4 +32,5 @@ model participant {
   is_deleted      Boolean   @default(false)
 
   @@index([friend_email], map: "friend_email")
+  @@index([applicant_email], map: "applicant_email")
 }

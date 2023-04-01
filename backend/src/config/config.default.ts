@@ -6,11 +6,11 @@ export default {
   koa: {
     port: 4365,
   },
-  oauth2: {
-    user: process.env.OAUTH2_USER,
-    clientId: process.env.OAUTH2_CLIENT_ID,
-    clientSecret: process.env.OAUTH2_CLIENT_SECRET,
-    refreshToken: process.env.OAUTH2_REFRESH_TOKEN,
-    accessToken: process.env.OAUTH2_ACCESS_TOKEN,
+  sendgrid: {
+    apiKey: process.env.SENDGRID_API_KEY,
+    sender: process.env.SENDGRID_SENDER,
+  },
+  azure: {
+    keyVaultURI: process.env.AZURE_KEY_VAULT_URI,
   },
 } as MidwayConfig;
