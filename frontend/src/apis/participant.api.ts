@@ -20,7 +20,7 @@ export interface EnrollmentRequest {
   germanSpeaker: boolean;
   street?: string | null;
   houseNumber?: number | null;
-  host: boolean;
+  host: boolean | undefined;
   appetizer: boolean;
   mainCourse: boolean;
   dessert: boolean;
