@@ -6,6 +6,7 @@ import { TemplateManager } from '../template.manager';
 import { AddParticipantRequest } from '../interface';
 import { ParticipantService } from '../service/participant.service';
 
+
 @Controller('/api')
 export class APIController {
   @Inject()

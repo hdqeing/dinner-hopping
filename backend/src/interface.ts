@@ -45,6 +45,7 @@ export interface SendMailEvent {
 export interface RegistrationSuccessEmailVariables {
   appellation: string;
   qa: QuestionAndAnswer[];
+  verificationUrl: string;
 }
 
 export interface QuestionAndAnswer {

@@ -1,12 +1,16 @@
 <mjml>
   <mj-head>
-    
+
   </mj-head>
   <mj-body>
     <mj-wrapper border="1px solid #aaaaaa" padding="50px 30px">
       <mj-section padding="0 20px">
         <mj-column>
           <mj-text font-size="16px">Dear {{ appellation }}</mj-text>
+          <mj-text font-size="16px">Thanks for registering for dinner hopping. You can click the link below to verify your email address: </mj-text>
+        <mj-button href="{{verificationUrl}}">
+          Click here to verify your email address
+        </mj-button>
           <mj-text font-size="16px">Your registration form has been received, and any subsequent event details shall be communicated to you via this email address.</mj-text>
           <mj-spacer height="10px"></mj-spacer>
         </mj-column>
@@ -20,13 +24,13 @@
               <th style="padding: 0 0 0 15px;">Your Answer</th>
             </tr>
             {{#each qa}}
-            <tr>
-              <td style="padding: 0 15px 0 0;">{{ question }}</td>
-              <td style="padding: 0 0 0 15px;">{{ answer }} </td>
-            </tr>
+              <tr>
+                <td style="padding: 0 15px 0 0;">{{ question }}</td>
+                <td style="padding: 0 0 0 15px;">{{ answer }} </td>
+              </tr>
             {{/each}}
-          </mj-table>  
-        </mj-column>  
+          </mj-table>
+        </mj-column>
       </mj-section>
       <mj-section>
         <mj-column>

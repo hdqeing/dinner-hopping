@@ -11,6 +11,7 @@
     "@midwayjs/decorator": "^3.0.0",
     "@midwayjs/hooks": "^3.1.4",
     "@midwayjs/info": "^3.0.0",
+    "@midwayjs/jwt": "^3.11.3",
     "@midwayjs/koa": "^3.0.0",
     "@midwayjs/logger": "^2.14.0",
     "@midwayjs/validate": "^3.0.0",
@@ -20,6 +21,7 @@
     "@types/node-fetch": "^2.6.2",
     "dotenv": "^16.0.3",
     "handlebars": "^4.7.7",
+    "jsonwebtoken": "^9.0.0",
     "mjml": "^4.13.0"
   },
   "devDependencies": {

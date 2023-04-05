@@ -13,4 +13,8 @@ export default {
   azure: {
     keyVaultURI: process.env.AZURE_KEY_VAULT_URI,
   },
+  jwt: {
+    secret: 'xxx', // fs.readFileSync('xxxxx.key')
+  },
+
 } as MidwayConfig;
