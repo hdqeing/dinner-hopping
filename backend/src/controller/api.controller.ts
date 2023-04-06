@@ -30,6 +30,7 @@ export class APIController {
     const participant = await this.participantService.getParticipantByEmail(
       request.email
     );
+    console.log('Find participant with email ' + participant.applicant_email + ', his id is ' + participant.participant_id);
     await this.emailService.sendRegistrationSuccessEmail(participant);
     return { success: true, message: 'OK' };
   }

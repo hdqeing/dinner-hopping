@@ -27,9 +27,8 @@ export class VerificationService extends BaseService {
    */
   async verifyEmail(jwtToken){
     try{
-      console.log("Email secret is: "+this.emailSecret);
-        const pidString = (await this.jwtService.verify(jwtToken, this.emailSecret)).toString();
-        const pid = parseInt(pidString, 10);
+        const jwtPayload = (await this.jwtService.decode(jwtToken));        
+        const pid = parseInt(jwtPayload['pid'], 10);
         await this.prisma.participant.update({
             where: {
                 participant_id: pid,
