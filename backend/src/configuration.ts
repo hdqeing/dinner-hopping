@@ -9,13 +9,14 @@ import { ReportMiddleware } from './middleware/report.middleware';
 import * as dotenv from 'dotenv';
 import { AzureKeyVaultService } from './service/azure.service';
 import * as jwt from '@midwayjs/jwt';
-
+import * as crossDomain from '@midwayjs/cross-domain';
 
 // load .env file in process.cwd
 dotenv.config();
 
 @Configuration({
   imports: [
+    crossDomain,
     koa,
     jwt,
     validate,

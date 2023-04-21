@@ -10,12 +10,12 @@ export default defineConfig({
       '@': resolve('src')
     }
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:4365',
-        changeOrigin: true
-      },
-    }
-  }
+  // server: {
+  //   proxy: {
+  //     '/api': {
+  //       target: 'http://localhost:4365',
+  //       changeOrigin: true
+  //     },
+  //   }
+  // }
 })
