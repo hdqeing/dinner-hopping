@@ -6,6 +6,7 @@ import { TemplateManager } from '../template.manager';
 import { AddParticipantRequest } from '../interface';
 import { ParticipantService } from '../service/participant.service';
 
+
 @Controller('/api')
 export class APIController {
   @Inject()
@@ -29,6 +30,7 @@ export class APIController {
     const participant = await this.participantService.getParticipantByEmail(
       request.email
     );
+    console.log('Find participant with email ' + participant.applicant_email + ', his id is ' + participant.participant_id);
     await this.emailService.sendRegistrationSuccessEmail(participant);
     return { success: true, message: 'OK' };
   }

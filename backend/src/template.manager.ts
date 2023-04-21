@@ -1,13 +1,18 @@
-import { Provide, Singleton } from '@midwayjs/core';
+import { Inject, Provide, Singleton } from '@midwayjs/core';
 import { readFileSync } from 'fs';
 import { compile } from 'handlebars';
 import { participant } from '@prisma/client';
 import { EmailType, RegistrationSuccessEmailVariables } from './interface';
 import { join } from 'path';
+import { VerificationService } from './service/verification.service';
 
 @Provide()
 @Singleton()
 export class TemplateManager {
+
+  @Inject()
+  private verificationService: VerificationService;
+
   compliedTemplate: Map<EmailType, HandlebarsTemplateDelegate<any>>;
   constructor() {
     this.compliedTemplate = new Map();
@@ -74,7 +79,11 @@ export class TemplateManager {
     if (pojo.dessert) {
       course.push('dessert');
     }
+    const jwt = await this.verificationService.createToken(pojo.participant_id);
+    //const veriUrl = 'https://api.dinnerhoppinggoettingen.de/verification/?jwt='+jwt;
+    const veriUrl = 'https://localhost:4365/verification/?jwt='+jwt;
     const vars: RegistrationSuccessEmailVariables = {
+      verificationUrl: veriUrl,
       appellation: appellation,
       qa: [
         {

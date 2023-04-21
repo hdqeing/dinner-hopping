@@ -8,6 +8,7 @@ import { join } from 'path';
 import { ReportMiddleware } from './middleware/report.middleware';
 import * as dotenv from 'dotenv';
 import { AzureKeyVaultService } from './service/azure.service';
+import * as jwt from '@midwayjs/jwt';
 import * as crossDomain from '@midwayjs/cross-domain';
 
 // load .env file in process.cwd
@@ -17,6 +18,7 @@ dotenv.config();
   imports: [
     crossDomain,
     koa,
+    jwt,
     validate,
     {
       component: info,
@@ -40,11 +42,15 @@ export class ContainerLifeCycle {
     const sendgridSender = await this.azureSecretsClient.getSecret(
       'SENDGRID-SENDER'
     );
+    const emailSecret = await this.azureSecretsClient.getSecret('VERIFICATION-JWT-SECRET');
     return {
       sendgrid: {
         apiKey: sendgridApiKey,
         sender: sendgridSender,
       },
+      jwt: {
+        secret: emailSecret,
+      }
     };
   }
 
