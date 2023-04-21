@@ -6,6 +6,16 @@ export default {
   koa: {
     port: 4365,
   },
+  cors: {
+    origin: (ctx) => {
+      const allowCors = [
+        'https://www.dinnerhoppinggoettingen.de',
+        'http://localhost:5173',
+        'http://localhost:4365'
+      ];
+      return allowCors.indexOf(ctx.header.origin) > -1 ? ctx.header.origin : '';
+    } 
+  },
   sendgrid: {
     apiKey: process.env.SENDGRID_API_KEY,
     sender: process.env.SENDGRID_SENDER,
