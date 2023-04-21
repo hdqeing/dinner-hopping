@@ -1,9 +1,12 @@
 import axios from 'axios'
 
+export const isTestEnv = window.location.hostname === 'www.dinnerhoppinggoettingen.de'
+const customBaseUrl = isTestEnv ? 'https://api.dinnerhoppinggoettingen.de' : 'http://localhost:4365'
+
 const request = axios.create({
-	baseURL: '/api/', 
-	timeout: 5000, 
-	withCredentials: true,
+	baseURL: customBaseUrl + '/api/', 
+	timeout: 15000, 
+	withCredentials: isTestEnv,
 	headers: {
 		'Content-Type': 'application/json',
 		'token': 'your token',
