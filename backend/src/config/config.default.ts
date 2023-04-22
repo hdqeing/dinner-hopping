@@ -14,7 +14,8 @@ export default {
         'http://localhost:4365'
       ];
       return allowCors.indexOf(ctx.header.origin) > -1 ? ctx.header.origin : '';
-    } 
+    },
+    credentials: true
   },
   sendgrid: {
     apiKey: process.env.SENDGRID_API_KEY,
