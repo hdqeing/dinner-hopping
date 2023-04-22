@@ -1,0 +1,1 @@
+import{E as e}from"./Enrollment-b58a400d.js";import{f as o,o as r,g as t}from"./index-f73ac5ab.js";const m=o({__name:"WithAFriend",setup(n){return(a,s)=>(r(),t(e,{"with-friend":""}))}});export{m as default};
