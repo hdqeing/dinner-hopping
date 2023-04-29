@@ -1,20 +1,20 @@
 import { Provide } from '@midwayjs/core'
 import { AddParticipantRequest } from '../interface';
 import { participant } from '@prisma/client';
-import { BaseService } from './base.service';
+import { prisma } from '../prisma'
 
 @Provide()
-export class ParticipantService extends BaseService {
+export class ParticipantService {
 
   async listParticipant() {
-    return await this.prisma.participant.findMany({
+    return await prisma.participant.findMany({
       where: { verified: false },
       select: { applicant_name: true },
     });
   }
 
   async addParticipant(request: AddParticipantRequest) {
-    return await this.prisma.participant.create({
+    return await prisma.participant.create({
       data: {
         applicant_name: request.name,
         applicant_email: request.email,
@@ -37,7 +37,7 @@ export class ParticipantService extends BaseService {
   }
 
  async getParticipantByEmail(email: string): Promise<participant> {
-    return await this.prisma.participant.findFirst({
+    return await prisma.participant.findFirst({
       where: {
         applicant_email: email,
         is_deleted: false,

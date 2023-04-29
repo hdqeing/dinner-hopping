@@ -22,7 +22,7 @@ export default {
     sender: process.env.SENDGRID_SENDER,
   },
   azure: {
-    keyVaultURI: process.env.AZURE_KEY_VAULT_URI,
+    keyVaultURI: "https://dinnerhoppingsecret.vault.azure.net/",
   },
   jwt: {
     secret: 'xxx', // fs.readFileSync('xxxxx.key')
