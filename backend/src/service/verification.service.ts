@@ -1,11 +1,11 @@
 import { Config, Inject, Provide,Singleton } from '@midwayjs/core';
 import { JwtService } from "@midwayjs/jwt";
-import { BaseService } from './base.service';
+import { prisma } from '../prisma'
 
 
 @Provide()
 @Singleton()
-export class VerificationService extends BaseService {
+export class VerificationService {
 
 
   @Inject()
@@ -23,13 +23,13 @@ export class VerificationService extends BaseService {
   }
 
   /**
-   * Verify jwt token and change state of verified user. 
+   * Verify jwt token and change state of verified user.
    */
   async verifyEmail(jwtToken){
     try{
-        const jwtPayload = (await this.jwtService.decode(jwtToken));        
+        const jwtPayload = (await this.jwtService.decode(jwtToken));
         const pid = parseInt(jwtPayload['pid'], 10);
-        await this.prisma.participant.update({
+        await prisma.participant.update({
             where: {
                 participant_id: pid,
             },
@@ -42,7 +42,7 @@ export class VerificationService extends BaseService {
         console.log(err)
         return { success:false };
     }
-    
+
 
   }
 
