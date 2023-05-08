@@ -1,4 +1,6 @@
 import { MidwayConfig } from '@midwayjs/core';
+import { Participant } from '../entity/participant.entity';
+
 
 export default {
   // use for cookie sign key, should change to your own and keep security
@@ -26,6 +28,20 @@ export default {
   },
   jwt: {
     secret: 'xxx', // fs.readFileSync('xxxxx.key')
+  },
+  typeorm: {
+    dataSource: {
+      default: {
+        type: 'mysql',
+        host: 'dinnerhopping.mysql.database.azure.com',
+        port: 3306,
+        username: 'dev_admin',
+        password: 'HEdingqing&ZHANGzeyu110',
+        database: 'dev',
+        logging: false,
+        entities: [Participant],
+      }
+    }
   },
 
 } as MidwayConfig;

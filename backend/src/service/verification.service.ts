@@ -1,6 +1,9 @@
 import { Config, Inject, Provide,Singleton } from '@midwayjs/core';
 import { JwtService } from "@midwayjs/jwt";
-import { prisma } from '../prisma'
+import { InjectEntityModel } from '@midwayjs/typeorm';
+import { Participant } from '../entity/participant.entity';
+import { Repository } from 'typeorm';
+
 
 
 @Provide()
@@ -13,6 +16,10 @@ export class VerificationService {
 
   @Config('jwt.secret')
   emailSecret: string;
+
+  @InjectEntityModel(Participant)
+  participantModel: Repository<Participant>;
+
 
 
   /**
@@ -29,14 +36,14 @@ export class VerificationService {
     try{
         const jwtPayload = (await this.jwtService.decode(jwtToken));
         const pid = parseInt(jwtPayload['pid'], 10);
-        await prisma.participant.update({
+        let participantToVerify = await this.participantModel.findOne({
             where: {
-                participant_id: pid,
+                id: pid,
             },
-            data: {
-                verified: true,
-            }
         });
+        participantToVerify.isVerified = true;
+        await this.participantModel.save(participantToVerify)
+
         return { success:true };
     } catch (err){
         console.log(err)

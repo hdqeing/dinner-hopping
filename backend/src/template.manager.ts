@@ -1,8 +1,9 @@
-import { Inject, Provide, Singleton } from '@midwayjs/core';
+import { Inject, Provide, Singleton} from '@midwayjs/core';
 import { readFileSync } from 'fs';
 import { compile } from 'handlebars';
-import { participant } from '@prisma/client';
-import { EmailType, RegistrationSuccessEmailVariables } from './interface';
+import { InjectEntityModel } from '@midwayjs/typeorm';
+import { Participant } from './entity/participant.entity';
+import { Repository } from 'typeorm';import { EmailType, RegistrationSuccessEmailVariables } from './interface';
 import { join } from 'path';
 import { VerificationService } from './service/verification.service';
 
@@ -12,6 +13,9 @@ export class TemplateManager {
 
   @Inject()
   private verificationService: VerificationService;
+
+  @InjectEntityModel(Participant)
+  participantModel: Repository<Participant>;
 
   compliedTemplate: Map<EmailType, HandlebarsTemplateDelegate<any>>;
   constructor() {
@@ -37,20 +41,12 @@ export class TemplateManager {
     return '';
   }
 
-  async getRegistrationSuccessHtml(pojo: participant): Promise<string> {
-    let appellation = 'participant';
+  async getRegistrationSuccessHtml(pojo: Participant): Promise<string> {
+    let appellation = pojo.name;
     const languages = [];
     let host = 'I cannnot';
     const address = [];
     const course = [];
-    // Get appellation
-    if (pojo.applicant_name && pojo.applicant_name !== '') {
-      if (pojo.friend_name !== null && pojo.friend_name !== '') {
-        appellation = pojo.applicant_name + ' and ' + pojo.friend_name;
-      } else {
-        appellation = pojo.applicant_name;
-      }
-    }
     // Get host
     if (pojo.host) {
       if (pojo.house_number) {
@@ -79,7 +75,7 @@ export class TemplateManager {
     if (pojo.dessert) {
       course.push('dessert');
     }
-    const jwt = await this.verificationService.createToken(pojo.participant_id);
+    const jwt = await this.verificationService.createToken(pojo.id);
     //const veriUrl = 'https://api.dinnerhoppinggoettingen.de/verification/?jwt='+jwt;
     const veriUrl = 'https://localhost:4365/verification/?jwt='+jwt;
     const vars: RegistrationSuccessEmailVariables = {

@@ -9,6 +9,7 @@ import { ReportMiddleware } from './middleware/report.middleware';
 import * as dotenv from 'dotenv';
 import * as jwt from '@midwayjs/jwt';
 import * as crossDomain from '@midwayjs/cross-domain';
+import * as orm from '@midwayjs/typeorm';
 
 // load .env file in process.cwd
 dotenv.config();
@@ -22,6 +23,7 @@ console.log(process.env.SENDGRID_API_KEY)
     crossDomain,
     koa,
     jwt,
+    orm,
     validate,
     {
       component: info,

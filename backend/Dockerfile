@@ -1,29 +1,23 @@
-FROM node:18 AS build
+FROM node:16
 
-WORKDIR /app
+# Create app directory
+WORKDIR /usr/src/app
 
-COPY . .
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
 RUN npm install
+# If you are building your code for production
+# RUN npm ci --omit=dev
 
-RUN npx prisma generate
+
+# Bundle app source
+COPY . .
+
 RUN npm run build
 
-FROM node:18-alpine
-
-WORKDIR /app
-
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/prisma ./prisma
-# 把源代码复制过去， 以便报错能报对行
-COPY --from=build /app/src ./src
-COPY --from=build /app/bootstrap.js ./
-COPY --from=build /app/package.json ./
-COPY --from=build /app/startup.sh ./
-RUN chmod +x startup.sh
-
-RUN npm install --omit=dev
 
 EXPOSE 4365
-
-CMD [ "./startup.sh" ]
+CMD [ "node", "bootstrap.js" ]

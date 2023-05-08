@@ -1,13 +1,18 @@
 import { Provide, Inject, Config, Init } from '@midwayjs/core';
-import { participant } from '@prisma/client';
 import { SendMailEvent } from '../interface';
 import { TemplateManager } from '../template.manager';
 import { MailService } from '@sendgrid/mail';
+import { InjectEntityModel } from '@midwayjs/typeorm';
+import { Participant } from '../entity/participant.entity';
+import { Repository } from 'typeorm';
 
 @Provide()
 export class EmailService {
   @Inject()
   templateManager: TemplateManager;
+
+  @InjectEntityModel(Participant)
+  participantModel: Repository<Participant>;
 
   @Config('sendgrid.apiKey')
   apiKey: string;
@@ -37,34 +42,23 @@ export class EmailService {
     return this.sendgridMailClient.send(options);
   }
 
-  async sendRegistrationSuccessEmail(pojo: participant) {
+  async sendRegistrationSuccessEmail(pojo: Participant) {
     let title: string;
     let emailHtml: string;
-    if (pojo.friend_name && pojo.friend_name !== '') {
-      title = 'Successful Dinner Hopping registration for yourself';
-    } else {
-      title = 'Successful Dinner Hopping registration with your friend';
-    }
+    title = 'Successful Dinner Hopping registration for yourself';
 
     // Generate email html
-    emailHtml = await this.templateManager.getRegistrationSuccessHtml(pojo);
+    //emailHtml = await this.templateManager.getRegistrationSuccessHtml(pojo);
+    emailHtml = "Love you";
+
+    console.log(pojo.email);
 
     // Send mail to applicant
-    if (pojo.applicant_email && pojo.applicant_email !== '') {
       await this.sendMail({
-        to: pojo.applicant_email,
+        to: pojo.email,
         subject: title,
         html: emailHtml,
       });
     }
-
-    // Send mail to applicant's friend
-    if (pojo.friend_email && pojo.friend_email !== '') {
-      await this.sendMail({
-        to: pojo.friend_email,
-        subject: title,
-        html: emailHtml,
-      });
-    }
-  }
+    
 }

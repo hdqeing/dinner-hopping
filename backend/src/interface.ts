@@ -6,11 +6,13 @@ export interface IUserOptions {
 }
 
 export interface AddParticipantRequest {
+  hasPartner: boolean;
   name: string;
   email: string;
-  friendName: string;
-  friendEmail: string;
   phonenumber?: string | null;
+  partnerName: string;
+  partnerEmail: string;
+  partnerPhonenumber?: string | null;
   vegan: boolean;
   vegetarian: boolean;
   englishSpeaker: boolean;
